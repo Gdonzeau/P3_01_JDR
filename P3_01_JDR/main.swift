@@ -125,6 +125,10 @@ class Game {
         }
         return nameAlreadyExists
     }
+    
+    func Fight(Attacker:String,Attacked:String) {
+        
+    }
 }
 
 var game = Game()
@@ -140,13 +144,39 @@ var player1 = Player()
 var player2 = Player()
 
 class Hero {
-    enum heroClass {
+    
+    enum Classe { // Enum avec un nom français pour ne pas mélanger avec les termes de programmation
         case Barbarian, Ranger, Mage, Warrior, Druid, toDefine
     }
+ 
     var name = ""
     var HP = 100
-    var type:heroClass = .toDefine
+    var equipment = ""
+  //  var type:heroClass = .toDefine
 }
+/*
+func ajustHeroClasse(HeroClass:enum) {
+    switch HeroClass {
+    case is Barbarian:
+        <#code#>
+    case Ranger:
+        <#code#>
+    case Mage:
+        <#code#>
+    case Warrior:
+        <#code#>
+    case Druid:
+        <#code#>
+    default:
+        <#code#>
+    }
+}
+*/
+/*
+class Barbarian:Hero {
+    
+}
+ */
 class Stuff {
     enum function {
         case heal

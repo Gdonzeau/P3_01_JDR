@@ -37,6 +37,68 @@ class Game {
                 }
             }
     }
+    func giveNameToHero1() {
+        print("\(player1.name), comment appelez-vous votre premier héros ?")
+        if let nameHero = readLine() {
+            player1.hero1.name = nameHero
+        }
+    }
+    func giveNameToHero2() {
+        print("\(player1.name), comment appelez-vous votre deuxième héros ?")
+        if let nameHero = readLine() {
+            if (checkHeroName(nameToCheck: nameHero)) {
+                giveNameToHero2()
+            }
+            else {
+            player1.hero2.name = nameHero
+            }
+        }
+    }
+    func giveNameToHero3() {
+        print("\(player1.name), comment appelez-vous votre troisième héros ?")
+        if let nameHero = readLine() {
+            if (checkHeroName(nameToCheck: nameHero)) {
+                giveNameToHero3()
+            }
+            else {
+            player1.hero3.name = nameHero
+            }
+        }
+    }
+    func giveNameToHero4() {
+        print("\(player2.name), comment appelez-vous votre premier héros ?")
+        if let nameHero = readLine() {
+            if (checkHeroName(nameToCheck: nameHero)) {
+                giveNameToHero4()
+            }
+            else {
+            player2.hero1.name = nameHero
+            }
+        }
+    }
+    func giveNameToHero5() {
+        print("\(player2.name), comment appelez-vous votre deuxième héros ?")
+        if let nameHero = readLine() {
+            if (checkHeroName(nameToCheck: nameHero)) {
+                giveNameToHero5()
+            }
+            else {
+            player2.hero2.name = nameHero
+            }
+        }
+    }
+    func giveNameToHero6() {
+        print("\(player2.name), comment appelez-vous votre troisième héros ?")
+        if let nameHero = readLine() {
+            if (checkHeroName(nameToCheck: nameHero)) {
+                giveNameToHero6()
+            }
+            else {
+            player2.hero3.name = nameHero
+            }
+        }
+    }
+    
     func checkPlayerName(nameToCheck: String) -> Bool {
         
         if nameToCheck == player1.name {
@@ -104,3 +166,11 @@ var premierHero = Hero()
 
 game.giveNameToPlayer1()
 game.giveNameToPlayer2()
+game.giveNameToHero1()
+game.giveNameToHero2()
+game.giveNameToHero3()
+game.giveNameToHero4()
+game.giveNameToHero5()
+game.giveNameToHero6()
+
+

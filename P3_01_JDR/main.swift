@@ -53,6 +53,8 @@ class Game {
     
     func giveNameToHeroes(counted:Int) {
         for count in counted ..< 6 {
+            if count < 3 {
+                if player1.heroes[count].name == "" {
             if count<player1.heroes.count {
                 print("\(player1.name), comment appelez-vous votre héros \(count+1)?")
             }
@@ -62,6 +64,7 @@ class Game {
         if let nameHero = readLine() {
             if (checkHeroesName(nameToCheck: nameHero,count:count)) {
                 giveNameToHeroes(counted: count)
+                break
             }
             else {
                 if count < 3 {
@@ -71,10 +74,14 @@ class Game {
                 else {
                     player2.heroes[count-3].name = nameHero
                     print("Count = \(count)")
+                    if count == 5 {
+                        break
+                    }
                     }
                 }
             }
         }
+    }
     }
     func checkHeroesName(nameToCheck: String,count:Int) -> Bool {
         let namesUsed = [player1.heroes[0].name,player1.heroes[1].name,player1.heroes[2].name,player2.heroes[0].name,player2.heroes[1].name,player2.heroes[2].name]
@@ -83,6 +90,7 @@ class Game {
                 print("Ce nom existe déjà.")
                 print("count : \(count)")
                 nameAlreadyExists = true
+                
                 break
             }
             else {
@@ -101,10 +109,11 @@ var game = Game()
 
 class Player {
     var name = ""
-    var hero1 = Hero()
-    var hero2 = Hero()
-    var hero3 = Hero()
+    //var hero1 = Hero()
+    //var hero2 = Hero()
+    //var hero3 = Hero()
     var heroes = [Hero(),Hero(),Hero()]
+    //var heroes = [hero1,hero2,hero3]
 }
 
 var player1 = Player()
@@ -166,3 +175,5 @@ game.giveNameToPlayer2()
 
 game.giveNameToHeroes(counted: 0)
 
+print("Le joueur \(player1.name) a les héros \(player1.heroes[0].name), \(player1.heroes[1].name), \(player1.heroes[2].name)")
+print("Le joueur \(player2.name) a les héros \(player2.heroes[0].name), \(player2.heroes[1].name), \(player2.heroes[2].name)")

@@ -16,33 +16,42 @@ class Game {
     var Players = [player1,player2]
     var nameAlreadyExists = false
     
-    func giveNameToPlayer() {
-        for i in 0..<Players.count {
-            print("Bonjour Joueur \(i+1). Comment vous appelez-vous ?")
-            if let text = readLine() {
-                var names = [player1.name,player2.name]
-                if checkName(nameToCheck: text,names:names ) {
-                    giveNameToPlayer()
+    func giveNameToPlayer1() {
+            print("Bonjour Joueur 1. Comment vous appelez-vous ?")
+        if let namePlayer1 = readLine() {
+            player1.name = namePlayer1
+            print("Bonjour \(player1.name).")
+        }
+    }
+    func giveNameToPlayer2() {
+        print("Bonjour Joueur 2. Comment vous appelez-vous ?")
+            if let namePlayer2 = readLine() {
+                
+                if checkPlayerName(nameToCheck: namePlayer2) {
+                    giveNameToPlayer2()
                 }
                 
                 else {
-                   // let newName =
-                names[i] = text
-                    if i == 0 {
-                        player1.name = text
-                    }
-                    if i == 1 {
-                        player2.name = text
-                    }
-                    //Players[i].name = names[i]
-                print("Bonjour \(names[i]).")
+                    player2.name = namePlayer2
+                    print("Bonjour \(player2.name).")
                 }
             }
-        }
+    }
+    func checkPlayerName(nameToCheck: String) -> Bool {
+        
+        if nameToCheck == player1.name {
+                print("Ce nom existe déjà.")
+                nameAlreadyExists = true
+            }
+            else {
+                nameAlreadyExists = false
+            }
+        return nameAlreadyExists
     }
     
-    func checkName(nameToCheck: String,names:[String]) -> Bool {
-        for name in names {
+    func checkHeroName(nameToCheck: String) -> Bool {
+        let namesUsed = [player1.hero1.name,player1.hero2.name,player1.hero3.name,player2.hero1.name,player2.hero2.name,player2.hero3.name]
+        for name in namesUsed {
             if nameToCheck == name {
                 print("Ce nom existe déjà.")
                 nameAlreadyExists = true
@@ -60,7 +69,9 @@ var game = Game()
 
 class Player {
     var name = ""
-    var groupOfHeroes = [Hero(),Hero(),Hero()]
+    var hero1 = Hero()
+    var hero2 = Hero()
+    var hero3 = Hero()
 }
 
 var player1 = Player()
@@ -74,7 +85,6 @@ class Hero {
     var HP = 100
     var type:heroClass = .toDefine
 }
-
 class Stuff {
     enum function {
         case heal
@@ -92,4 +102,5 @@ class Heal:Stuff {
 }
 var premierHero = Hero()
 
-game.giveNameToPlayer()
+game.giveNameToPlayer1()
+game.giveNameToPlayer2()

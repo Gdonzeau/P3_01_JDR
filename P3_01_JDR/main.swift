@@ -51,10 +51,9 @@ class Game {
         return nameAlreadyExists
     }
     
-    func giveNameToHeroes(counted:Int) {
-        for count in counted ..< 6 {
-            if count < 3 {
-                if player1.heroes[count].name == "" {
+    func giveNameToHeroes() { // On ne remplit les cases du tableau des noms que si le nom proposé n'existe pas déjà.
+        for count in 0 ..< 6 {
+            if (count < 3 && player1.heroes[count].name == "") || (count > 2 && player2.heroes[count-player1.heroes.count].name == ""){ // On cherche la première case vide dans le tableau des noms (au début chez le joueur 1, puis chez le joueur 2
             if count<player1.heroes.count {
                 print("\(player1.name), comment appelez-vous votre héros \(count+1)?")
             }
@@ -62,21 +61,16 @@ class Game {
                 print("\(player2.name), comment appelez-vous votre héros \(count-player1.heroes.count+1) ?")
             }
         if let nameHero = readLine() {
-            if (checkHeroesName(nameToCheck: nameHero,count:count)) {
-                giveNameToHeroes(counted: count)
+            if (checkHeroesName(nameToCheck: nameHero,count:count)) { // Si un nom identique existe, on ne remplit pas la case nom et on relance la fonction
+                giveNameToHeroes()
                 break
             }
             else {
                 if count < 3 {
                     player1.heroes[count].name = nameHero
-                    print("Count = \(count)")
                     }
                 else {
                     player2.heroes[count-3].name = nameHero
-                    print("Count = \(count)")
-                    if count == 5 {
-                        break
-                    }
                     }
                 }
             }
@@ -84,11 +78,11 @@ class Game {
     }
     }
     func checkHeroesName(nameToCheck: String,count:Int) -> Bool {
-        let namesUsed = [player1.heroes[0].name,player1.heroes[1].name,player1.heroes[2].name,player2.heroes[0].name,player2.heroes[1].name,player2.heroes[2].name]
+        let namesUsed = [player1.heroes[0].name,player1.heroes[1].name,player1.heroes[2].name,
+                         player2.heroes[0].name,player2.heroes[1].name,player2.heroes[2].name]
         for name in namesUsed {
             if nameToCheck == name {
                 print("Ce nom existe déjà.")
-                print("count : \(count)")
                 nameAlreadyExists = true
                 
                 break
@@ -173,7 +167,7 @@ var premierHero = Hero()
 game.giveNameToPlayer1()
 game.giveNameToPlayer2()
 
-game.giveNameToHeroes(counted: 0)
+game.giveNameToHeroes()
 
 print("Le joueur \(player1.name) a les héros \(player1.heroes[0].name), \(player1.heroes[1].name), \(player1.heroes[2].name)")
 print("Le joueur \(player2.name) a les héros \(player2.heroes[0].name), \(player2.heroes[1].name), \(player2.heroes[2].name)")

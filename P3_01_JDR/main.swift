@@ -80,11 +80,11 @@ class Game {
                     }
                 else {
                     player2.heroes[count-3].name = nameHero
+                        }
                     }
                 }
             }
         }
-    }
     }
     func checkHeroesName(nameToCheck: String,count:Int) -> Bool {
         let namesUsed = [player1.heroes[0].name,player1.heroes[1].name,player1.heroes[2].name,
@@ -109,13 +109,17 @@ class Game {
         // On fait défiler les noms des héros (namesUsed), on propose au joueur de choisir la classe et on modifie le profil du héros
         let namesUsed = [player1.heroes[0].name,player1.heroes[1].name,player1.heroes[2].name,
                          player2.heroes[0].name,player2.heroes[1].name,player2.heroes[2].name]
+        /*
         let classHeroes = [player1.heroes[0].classe,player1.heroes[1].classe,player1.heroes[2].classe,
                            player2.heroes[0].classe,player2.heroes[1].classe,player2.heroes[2].classe]
-        
+        */
         
         for i in 0 ..< 6 {
+            if (i < 3 && player1.heroes[i].classe == "") || (i > 2 && player2.heroes[i-player1.heroes.count].classe == ""){ // On cherche la première case vide dans le tableau des classes (au début chez le joueur 1, puis chez le joueur 2
             if i<3 {
-                print("\(player1.name), quelle carrière affectez-vous à \(namesUsed[i]) ?")
+                print("\(player1.name), quelle carrière affectez-vous à \(namesUsed[i]) ?"
+                + "\n 1.Barbare"
+                + "\n 2.Mage")
                 if let text = readLine() {
                     switch Int(text) {
                     case 1 :
@@ -124,22 +128,27 @@ class Game {
                     player1.heroes[i].classe = "Mage"
                     default :
                         print("Je n'ai pas compris. Répétez, s'il vous plaît.")
+                        classAssignation()
                     }
                 }
             }
             else {
-                print("\(player2.name), quelle carrière affectez-vous à \(namesUsed[i + 3]) ?")
+                print("\(player2.name), quelle carrière affectez-vous à \(namesUsed[i]) ?"
+                    + "\n 1.Barbare"
+                    + "\n 2.Mage")
                 if let text = readLine() {
                     switch Int(text) {
                     case 1 :
-                    player2.heroes[i].classe = "Barbare"
+                    player2.heroes[i-3].classe = "Barbare"
                     case 2 :
-                    player2.heroes[i].classe = "Mage"
+                    player2.heroes[i-3].classe = "Mage"
                     default :
                         print("Je n'ai pas compris. Répétez, s'il vous plaît.")
+                        classAssignation()
                     }
                 }
             }
+        }
         }
     }
     
@@ -161,54 +170,22 @@ var player1 = Player()
 var player2 = Player()
 
 class Hero {
-    
-    var name = ""
-    var HP = 100
-    var equipment = ""
-    var classe = ""
-}
-
-class Stuff {
-    enum function {
-        case heal
-        case hurt
-    }
-    
-}
-
-class Weapon:Stuff {
-    
-}
-
-class Heal:Stuff {
-    
-}
-var premierHero = Hero()
-/*
-game.giveNameToPlayer1()
-game.giveNameToPlayer2()
-
-game.giveNameToHeroes()
-
-print("Le joueur \(player1.name) a les héros \(player1.heroes[0].name), \(player1.heroes[1].name), \(player1.heroes[2].name)")
-print("Le joueur \(player2.name) a les héros \(player2.heroes[0].name), \(player2.heroes[1].name), \(player2.heroes[2].name)")
-*/
-class Hero2 {
     var name = ""
     var classe = ""
     var equipmentBase:String {
         get {
             switch classe {
             case "Barbare":
-                return "Épée"
+                return "une épée"
             case "Mage":
-                return "Sort de soin"
+                return "un sort de soin"
             default :
-                return "Petit bâton"
+                return "un petit bâton"
             }
         }
     }
     // Idée pour plus tard : introduire plusieurs tableaux pour le switch pour pouvoir changer facilement les caractéristiques et rajouter des types de héros.
+    // Chaque tableau aurait au même "i" les caractéristiques de la même classe. Ex: tableau 1 : Barbare, tableau 2 : une épée, tableau 3 : 120 PV, etc.
     var equipmentInGame = String()
     
     var HP:Int {
@@ -226,15 +203,15 @@ class Hero2 {
     var attack:Int {
         get {
             switch equipmentInGame {
-            case "Épée":
+            case "une épée":
                 return 30
-            case "Poignard":
+            case "un poignard":
                 return 20
-            case "Sort de soin":
+            case "un sort de soin":
                 return -40
-            case "Hache":
+            case "une hache":
                 return 40
-            case "Masse d'arme":
+            case "une masse d'arme":
                 return 50
             default :
                 return 10
@@ -245,29 +222,47 @@ class Hero2 {
         equipmentInGame = equipmentBase
     }
 }
-var c = Hero2()
-c.changeWeapon()
-print(c.HP)
-print(c.equipmentBase)
-print(c.equipmentInGame)
-print(c.attack)
 
-c.classe = "Mage"
-c.changeWeapon()
-print(c.HP)
-print(c.equipmentBase)
-print(c.equipmentInGame)
-print(c.attack)
 
-c.classe = "Barbare"
-c.changeWeapon()
-print(c.HP)
-print(c.equipmentBase)
-print(c.equipmentInGame)
-print(c.attack)
+game.giveNameToPlayer1()
+game.giveNameToPlayer2()
 
-c.equipmentInGame = "Poignard"
-print(c.HP)
-print(c.equipmentBase)
-print(c.equipmentInGame)
-print(c.attack)
+game.giveNameToHeroes()
+
+print("Le joueur \(player1.name) a les héros \(player1.heroes[0].name), \(player1.heroes[1].name), \(player1.heroes[2].name)")
+print("Le joueur \(player2.name) a les héros \(player2.heroes[0].name), \(player2.heroes[1].name), \(player2.heroes[2].name)")
+
+game.classAssignation()
+// Les héros préparent leur équipement
+for i in 0..<3 {
+player1.heroes[i].changeWeapon()
+}
+for i in 0..<3 {
+player2.heroes[i].changeWeapon()
+}
+// Mettre le code en dessous dans une fonction, mais pas ce soir.
+for i in 0..<3 {
+print("\(player1.heroes[i].name) est un \(player1.heroes[i].classe)")
+print("Il possède \(player1.heroes[i].equipmentBase),")
+if player1.heroes[i].attack > 0 {
+    print("une attaque de \(player1.heroes[i].attack)")
+    }
+    else {
+        print("soigne \(-player1.heroes[i].attack) PV, ")
+        
+    }
+    print("et a \(player1.heroes[i].HP) PV \n")
+}
+
+for i in 0..<3 {
+    print("\(player2.heroes[i].name) est un \(player2.heroes[i].classe)")
+    print("Il possède \(player2.heroes[i].equipmentBase),")
+    if player2.heroes[i].attack > 0 {
+        print("une attaque de \(player2.heroes[i].attack)")
+        }
+        else {
+            print("soigne \(-player2.heroes[i].attack) PV, ")
+            
+        }
+        print("et a \(player2.heroes[i].HP) PV \n")
+    }

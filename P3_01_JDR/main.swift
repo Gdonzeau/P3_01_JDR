@@ -15,6 +15,13 @@ class Game {
     var state:gameState = .going
     var Players = [player1,player2]
     var nameAlreadyExists = false
+    var numberOfClasses = 2 // Nombre de classes de personnages. Facilite la navigation dans le tableau suivant
+    var heroesAvailable:Any = ["Barbare","Mage",
+                                120,80,
+                                "Épée","Sort de soin",
+                                30,-40]
+    
+    // MARK: Nom des joueurs
     
     func giveNameToPlayer1() {
             print("Bonjour Joueur 1. Comment vous appelez-vous ?")
@@ -50,6 +57,8 @@ class Game {
             }
         return nameAlreadyExists
     }
+    
+    // MARK: Nom des héros
     
     func giveNameToHeroes() { // On ne remplit les cases du tableau des noms que si le nom proposé n'existe pas déjà.
         for count in 0 ..< 6 {
@@ -94,7 +103,49 @@ class Game {
         return nameAlreadyExists
     }
     
-    func Fight(Attacker:String,Attacked:String) {
+    // MARK: Assignation des classes aux héros
+    
+    func classAssignation() {
+        // On fait défiler les noms des héros (namesUsed), on propose au joueur de choisir la classe et on modifie le profil du héros
+        let namesUsed = [player1.heroes[0].name,player1.heroes[1].name,player1.heroes[2].name,
+                         player2.heroes[0].name,player2.heroes[1].name,player2.heroes[2].name]
+        let classHeroes = [player1.heroes[0].classe,player1.heroes[1].classe,player1.heroes[2].classe,
+                           player2.heroes[0].classe,player2.heroes[1].classe,player2.heroes[2].classe]
+        
+        
+        for i in 0 ..< 6 {
+            if i<3 {
+                print("\(player1.name), quelle carrière affectez-vous à \(namesUsed[i]) ?")
+                if let text = readLine() {
+                    switch Int(text) {
+                    case 1 :
+                    player1.heroes[i].classe = "Barbare"
+                    case 2 :
+                    player1.heroes[i].classe = "Mage"
+                    default :
+                        print("Je n'ai pas compris. Répétez, s'il vous plaît.")
+                    }
+                }
+            }
+            else {
+                print("\(player2.name), quelle carrière affectez-vous à \(namesUsed[i + 3]) ?")
+                if let text = readLine() {
+                    switch Int(text) {
+                    case 1 :
+                    player2.heroes[i].classe = "Barbare"
+                    case 2 :
+                    player2.heroes[i].classe = "Mage"
+                    default :
+                        print("Je n'ai pas compris. Répétez, s'il vous plaît.")
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: Combat entre les héros
+    
+    func Fight(Attacker:String,Attacked:String) { // Changer String. Envoyer le player.hero[rang] pour accéder facilement aux propriétés des héros
         
     }
 }
@@ -103,50 +154,20 @@ var game = Game()
 
 class Player {
     var name = ""
-    //var hero1 = Hero()
-    //var hero2 = Hero()
-    //var hero3 = Hero()
     var heroes = [Hero(),Hero(),Hero()]
-    //var heroes = [hero1,hero2,hero3]
 }
 
 var player1 = Player()
 var player2 = Player()
 
 class Hero {
-    /*
-    enum Classe { // Enum avec un nom français pour ne pas mélanger avec les termes de programmation
-        case Barbarian, Ranger, Mage, Warrior, Druid, toDefine
-    }
- */
+    
     var name = ""
     var HP = 100
     var equipment = ""
-  //  var type:heroClass = .toDefine
+    var classe = ""
 }
-/*
-func ajustHeroClasse(HeroClass:enum) {
-    switch HeroClass {
-    case is Barbarian:
-        <#code#>
-    case Ranger:
-        <#code#>
-    case Mage:
-        <#code#>
-    case Warrior:
-        <#code#>
-    case Druid:
-        <#code#>
-    default:
-        <#code#>
-    }
-}
-*/
-/*
-class Barbarian:Hero {
-    
-}
- */
+
 class Stuff {
     enum function {
         case heal
@@ -163,7 +184,7 @@ class Heal:Stuff {
     
 }
 var premierHero = Hero()
-
+/*
 game.giveNameToPlayer1()
 game.giveNameToPlayer2()
 
@@ -171,3 +192,82 @@ game.giveNameToHeroes()
 
 print("Le joueur \(player1.name) a les héros \(player1.heroes[0].name), \(player1.heroes[1].name), \(player1.heroes[2].name)")
 print("Le joueur \(player2.name) a les héros \(player2.heroes[0].name), \(player2.heroes[1].name), \(player2.heroes[2].name)")
+*/
+class Hero2 {
+    var name = ""
+    var classe = ""
+    var equipmentBase:String {
+        get {
+            switch classe {
+            case "Barbare":
+                return "Épée"
+            case "Mage":
+                return "Sort de soin"
+            default :
+                return "Petit bâton"
+            }
+        }
+    }
+    // Idée pour plus tard : introduire plusieurs tableaux pour le switch pour pouvoir changer facilement les caractéristiques et rajouter des types de héros.
+    var equipmentInGame = String()
+    
+    var HP:Int {
+        get {
+            switch classe {
+            case "Barbare":
+                return 120
+            case "Mage":
+                return 80
+            default :
+                return 100
+            }
+        }
+    }
+    var attack:Int {
+        get {
+            switch equipmentInGame {
+            case "Épée":
+                return 30
+            case "Poignard":
+                return 20
+            case "Sort de soin":
+                return -40
+            case "Hache":
+                return 40
+            case "Masse d'arme":
+                return 50
+            default :
+                return 10
+            }
+        }
+    }
+    func changeWeapon() {
+        equipmentInGame = equipmentBase
+    }
+}
+var c = Hero2()
+c.changeWeapon()
+print(c.HP)
+print(c.equipmentBase)
+print(c.equipmentInGame)
+print(c.attack)
+
+c.classe = "Mage"
+c.changeWeapon()
+print(c.HP)
+print(c.equipmentBase)
+print(c.equipmentInGame)
+print(c.attack)
+
+c.classe = "Barbare"
+c.changeWeapon()
+print(c.HP)
+print(c.equipmentBase)
+print(c.equipmentInGame)
+print(c.attack)
+
+c.equipmentInGame = "Poignard"
+print(c.HP)
+print(c.equipmentBase)
+print(c.equipmentInGame)
+print(c.attack)

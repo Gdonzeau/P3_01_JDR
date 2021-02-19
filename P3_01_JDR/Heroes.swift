@@ -71,6 +71,9 @@ class Hero {
 class Barbare:Hero {
     
     }
+class Mage:Hero {
+    
+    }
     
     
 

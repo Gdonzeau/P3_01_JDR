@@ -20,13 +20,6 @@ class Game {
     var state:gameState = .going
     var Players = [player1,player2]
     var nameAlreadyExists = false
-    /*
-    var numberOfClasses = 2 // Nombre de classes de personnages. Facilite la navigation dans le tableau suivant
-    var heroesAvailable:Any = ["Barbare","Mage",
-                                120,80,
-                                "Épée","Sort de soin",
-                                30,-40]
-    */
     
     // MARK: Nom des joueurs
     
@@ -168,6 +161,8 @@ class Game {
     
     func createHeroes() {
         for count in 0..<numberOfHeroes*numberOfPlayers {
+         //   askName(count:count)
+            /*
             func askName() {
             if count<numberOfHeroes {
                 print("\(player1.name), comment appelez-vous votre héros \(count+1)?")
@@ -176,58 +171,37 @@ class Game {
                 print("\(player2.name), comment appelez-vous votre héros \(count-numberOfHeroes+1) ?")
             }
         }
-            if let nameHero = readLine() {
+            */
+            if let nameHero = askName(count: count) {
+                print("Ok")
                 if (checkHeroesNameBis(nameToCheck: nameHero)) { // Si un nom identique existe, on ne remplit pas la case nom et on relance la fonction
-                    askName()
+                   askName(count:count)
                     //break
                 }
                 else {
-                    var waitingName = nameHero // On a vérifié que le nom n'existe pas. On le stocke dans une variable pour la suite.
+                    let waitingName = nameHero // On a vérifié que le nom n'existe pas. On le stocke dans une variable pour la suite.
                     // Et on passe à la classe
-                    func onAssigneUneClasse() {
-                    print("Quelle carrière affectez-vous à votre perso ?"
-                    + "\n 1.Barbare"
-                    + "\n 2.Mage")
-                    if let text = readLine() {
-                        if count < numberOfHeroes {
-                            switch Int(text) {
-                            case 1 :
-                            //player1.heroes[i].classe = "Barbare"
-                                player1.heroes.append(Barbare(classe: "Barbare", name: waitingName))
-                            case 2 :
-                                player1.heroes.append(Mage(classe: "Mage", name: waitingName))
-                            default :
-                                print("Je n'ai pas compris. Répétez, s'il vous plaît.")
-                               onAssigneUneClasse()
-                            }
-                        }
-                        else {
-                        switch Int(text) {
-                        case 1 :
-                        //player1.heroes[i].classe = "Barbare"
-                            player2.heroes.append(Barbare(classe: "Barbare", name: waitingName))
-                        case 2 :
-                            player2.heroes.append(Mage(classe: "Mage", name: waitingName))
-                        default :
-                            print("Je n'ai pas compris. Répétez, s'il vous plaît.")
-                           onAssigneUneClasse()
-                        }
-                    }
-                    }
-                    /*
-                    if count < 3 {
-                        player1.heroes[count].name = nameHero
-                        }
-                    else {
-                        player2.heroes[count-3].name = nameHero
-                            }
-                        */
-                    }
+                    onAssigneUneClasse(count: count,waitingName:waitingName)
+                    
                 }
             }
         }
     }
     
+    func askName(count:Int) ->String?{
+        var retour = ""
+    if count<numberOfHeroes {
+        print("\(player1.name), comment appelez-vous votre héros \(count+1)?")
+    }
+    else {
+        print("\(player2.name), comment appelez-vous votre héros \(count-numberOfHeroes+1) ?")
+    }
+        if let nameHero = readLine() {
+            retour = nameHero
+        }
+        print("\(retour)")
+        return retour
+}
     
     /*
     func giveNameToHeroesBis (count:Int)->String { // Renvoie le nom choisi pour le héros
@@ -235,33 +209,91 @@ class Game {
     }
     */
     func checkHeroesNameBis(nameToCheck: String) -> Bool {
-        let names1Used = player1.heroes.name
+        print("Vérif")
+        /*
+        if let Test = player1.heroes.name {
+            names1Used = Test
+        }
+        
         let names2Used = player2.heroes.name
+ */
         /*
             [player1.heroes[0].name,player1.heroes[1].name,player1.heroes[2].name,
                          player2.heroes[0].name,player2.heroes[1].name,player2.heroes[2].name]
  */
-        for name in names1Used {
-            if nameToCheck == name {
+        //for name in names1Used {
+     //   if player1.heroes.count != 1 {
+    for i in 0 ..< player1.heroes.count {
+        print("Je vérifie le tableau P1")
+        for name in player1.heroes[i].name {
+            if nameToCheck == String(name) {
                 print("Ce nom existe déjà.")
                 nameAlreadyExists = true
                 break
             }
-            else {
-                for name in names2Used {
-                    if nameToCheck == name {
-                        print("Ce nom existe déjà.")
-                        nameAlreadyExists = true
-                        break
-                    }
-                    else {
-                        nameAlreadyExists = false
-                    }
+        }
+    }
+        print("P1")
+    for i in 0 ..< player2.heroes.count {
+        print("Je vérifie le tableau P2")
+        for name in player2.heroes[i].name {
+            if nameToCheck == String(name) {
+                print("Ce nom existe déjà.")
+                nameAlreadyExists = true
+                break
                 }
+            else {
+                nameAlreadyExists = false
+            }
             }
         }
-        return nameAlreadyExists
+        print("P2")
+        print("nameAlreadyExists = \(nameAlreadyExists)")
+    return nameAlreadyExists
     }
+    
+    func onAssigneUneClasse(count:Int,waitingName:String) {
+    print("Quelle carrière affectez-vous à votre perso ?"
+    + "\n 1.Barbare"
+    + "\n 2.Mage")
+    if let text = readLine() {
+        if count < numberOfHeroes {
+            switch Int(text) {
+            case 1 :
+            //player1.heroes[i].classe = "Barbare"
+                player1.heroes.append(Barbare(classe: "Barbare", name: waitingName))
+            case 2 :
+                player1.heroes.append(Mage(classe: "Mage", name: waitingName))
+            default :
+                print("Je n'ai pas compris. Répétez, s'il vous plaît.")
+                onAssigneUneClasse(count:count,waitingName: waitingName)
+            }
+        }
+        else {
+        switch Int(text) {
+        case 1 :
+        //player1.heroes[i].classe = "Barbare"
+            player2.heroes.append(Barbare(classe: "Barbare", name: waitingName))
+        case 2 :
+            player2.heroes.append(Mage(classe: "Mage", name: waitingName))
+        default :
+            print("Je n'ai pas compris. Répétez, s'il vous plaît.")
+           onAssigneUneClasse(count: count, waitingName: waitingName)
+        }
+    }
+    }
+    /*
+    if count < 3 {
+        player1.heroes[count].name = nameHero
+        }
+    else {
+        player2.heroes[count-3].name = nameHero
+            }
+        */
+    }
+        
+      //  }
+    
     /*
     func classAssignationBis(count:Int)->Hero { // Renvoie la classe choisie pour le héros
         return 

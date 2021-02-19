@@ -9,5 +9,5 @@ import Foundation
 
 class Player {
     var name = ""
-    var heroes = [Hero(),Hero(),Hero()]
+    var heroes = [Hero]()
 }

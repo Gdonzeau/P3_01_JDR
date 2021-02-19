@@ -19,12 +19,15 @@ var player2 = Player()
 game.giveNameToPlayer1()
 game.giveNameToPlayer2()
 
-game.giveNameToHeroes()
+game.createHeroes()
 
 print("Le joueur \(player1.name) a les héros \(player1.heroes[0].name), \(player1.heroes[1].name), \(player1.heroes[2].name)")
 print("Le joueur \(player2.name) a les héros \(player2.heroes[0].name), \(player2.heroes[1].name), \(player2.heroes[2].name)")
 
-game.classAssignation()
+
+
+/*
+//game.classAssignation()
 // Les héros préparent leur équipement
 for i in 0..<3 {
 player1.heroes[i].changeWeapon()
@@ -58,3 +61,4 @@ for i in 0..<3 {
         }
         print("et a \(player2.heroes[i].HP) PV \n")
     }
+*/

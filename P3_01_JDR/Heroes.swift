@@ -8,15 +8,16 @@
 import Foundation
 
 class Hero {
-    var name = ""
-    var classe = ""
-    /*
+    var name: String
+    //var classe = ""
+    
     var classe:String
     
-    init (classe:String) {
+    init (classe:String,name:String) {
         self.classe = classe
+        self.name = name
     }
-    */
+    
     var equipmentBase:String {
         get {
             switch classe {
@@ -69,7 +70,7 @@ class Hero {
 }
 
 class Barbare:Hero {
-    
+    //override var HP: Int = 120
     }
 class Mage:Hero {
     

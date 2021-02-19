@@ -8,6 +8,11 @@
 import Foundation
 
 class Game {
+    var numberOfPlayers = 2
+    var numberOfHeroes = 3
+    var caracteristics = ["Barbare","Mage",
+                            "120","80",
+                            "une épée","un sort de soin"]
     enum gameState {
         case over
         case going
@@ -15,11 +20,13 @@ class Game {
     var state:gameState = .going
     var Players = [player1,player2]
     var nameAlreadyExists = false
+    /*
     var numberOfClasses = 2 // Nombre de classes de personnages. Facilite la navigation dans le tableau suivant
     var heroesAvailable:Any = ["Barbare","Mage",
                                 120,80,
                                 "Épée","Sort de soin",
                                 30,-40]
+    */
     
     // MARK: Nom des joueurs
     
@@ -59,10 +66,10 @@ class Game {
     }
     
     // MARK: Nom des héros
-    
+    /*
     func giveNameToHeroes() { // On ne remplit les cases du tableau des noms que si le nom proposé n'existe pas déjà.
-        for count in 0 ..< 6 {
-            if (count < 3 && player1.heroes[count].name == "") || (count > 2 && player2.heroes[count-player1.heroes.count].name == ""){ // On cherche la première case vide dans le tableau des noms (au début chez le joueur 1, puis chez le joueur 2
+        for count in 0 ..< numberOfHeroes*numberOfPlayers {
+            if (count < numberOfHeroes && player1.heroes[count].name == "") || (count > 2 && player2.heroes[count-player1.heroes.count].name == ""){ // On cherche la première case vide dans le tableau des noms (au début chez le joueur 1, puis chez le joueur 2
             if count<player1.heroes.count {
                 print("\(player1.name), comment appelez-vous votre héros \(count+1)?")
             }
@@ -86,6 +93,9 @@ class Game {
             }
         }
     }
+    */
+    
+    /*
     func checkHeroesName(nameToCheck: String,count:Int) -> Bool {
         let namesUsed = [player1.heroes[0].name,player1.heroes[1].name,player1.heroes[2].name,
                          player2.heroes[0].name,player2.heroes[1].name,player2.heroes[2].name]
@@ -102,9 +112,11 @@ class Game {
         }
         return nameAlreadyExists
     }
+    */
     
     // MARK: Assignation des classes aux héros
     
+    /*
     func classAssignation() {
         // On fait défiler les noms des héros (namesUsed), on propose au joueur de choisir la classe et on modifie le profil du héros
         let namesUsed = [player1.heroes[0].name,player1.heroes[1].name,player1.heroes[2].name,
@@ -151,7 +163,110 @@ class Game {
         }
         }
     }
+    */
     
+    
+    func createHeroes() {
+        for count in 0..<numberOfHeroes*numberOfPlayers {
+            func askName() {
+            if count<numberOfHeroes {
+                print("\(player1.name), comment appelez-vous votre héros \(count+1)?")
+            }
+            else {
+                print("\(player2.name), comment appelez-vous votre héros \(count-numberOfHeroes+1) ?")
+            }
+        }
+            if let nameHero = readLine() {
+                if (checkHeroesNameBis(nameToCheck: nameHero)) { // Si un nom identique existe, on ne remplit pas la case nom et on relance la fonction
+                    askName()
+                    //break
+                }
+                else {
+                    var waitingName = nameHero // On a vérifié que le nom n'existe pas. On le stocke dans une variable pour la suite.
+                    // Et on passe à la classe
+                    func onAssigneUneClasse() {
+                    print("Quelle carrière affectez-vous à votre perso ?"
+                    + "\n 1.Barbare"
+                    + "\n 2.Mage")
+                    if let text = readLine() {
+                        if count < numberOfHeroes {
+                            switch Int(text) {
+                            case 1 :
+                            //player1.heroes[i].classe = "Barbare"
+                                player1.heroes.append(Barbare(classe: "Barbare", name: waitingName))
+                            case 2 :
+                                player1.heroes.append(Mage(classe: "Mage", name: waitingName))
+                            default :
+                                print("Je n'ai pas compris. Répétez, s'il vous plaît.")
+                               onAssigneUneClasse()
+                            }
+                        }
+                        else {
+                        switch Int(text) {
+                        case 1 :
+                        //player1.heroes[i].classe = "Barbare"
+                            player2.heroes.append(Barbare(classe: "Barbare", name: waitingName))
+                        case 2 :
+                            player2.heroes.append(Mage(classe: "Mage", name: waitingName))
+                        default :
+                            print("Je n'ai pas compris. Répétez, s'il vous plaît.")
+                           onAssigneUneClasse()
+                        }
+                    }
+                    }
+                    /*
+                    if count < 3 {
+                        player1.heroes[count].name = nameHero
+                        }
+                    else {
+                        player2.heroes[count-3].name = nameHero
+                            }
+                        */
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    /*
+    func giveNameToHeroesBis (count:Int)->String { // Renvoie le nom choisi pour le héros
+        return "Voilà"
+    }
+    */
+    func checkHeroesNameBis(nameToCheck: String) -> Bool {
+        let names1Used = player1.heroes.name
+        let names2Used = player2.heroes.name
+        /*
+            [player1.heroes[0].name,player1.heroes[1].name,player1.heroes[2].name,
+                         player2.heroes[0].name,player2.heroes[1].name,player2.heroes[2].name]
+ */
+        for name in names1Used {
+            if nameToCheck == name {
+                print("Ce nom existe déjà.")
+                nameAlreadyExists = true
+                break
+            }
+            else {
+                for name in names2Used {
+                    if nameToCheck == name {
+                        print("Ce nom existe déjà.")
+                        nameAlreadyExists = true
+                        break
+                    }
+                    else {
+                        nameAlreadyExists = false
+                    }
+                }
+            }
+        }
+        return nameAlreadyExists
+    }
+    /*
+    func classAssignationBis(count:Int)->Hero { // Renvoie la classe choisie pour le héros
+        return 
+    }
+    */
     // MARK: Combat entre les héros
     
     func Fight(Attacker:String,Attacked:String) { // Changer String. Envoyer le player.hero[rang] pour accéder facilement aux propriétés des héros

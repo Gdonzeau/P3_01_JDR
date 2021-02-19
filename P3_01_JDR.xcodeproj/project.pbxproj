@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		04836E8925DB221C005AC7D6 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04836E8825DB221C005AC7D6 /* main.swift */; };
+		04836E9425DFC080005AC7D6 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04836E9325DFC080005AC7D6 /* Player.swift */; };
+		04836E9725DFC212005AC7D6 /* Heroes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04836E9625DFC212005AC7D6 /* Heroes.swift */; };
+		04836E9A25DFC23F005AC7D6 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04836E9925DFC23F005AC7D6 /* Game.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +28,9 @@
 /* Begin PBXFileReference section */
 		04836E8525DB221C005AC7D6 /* P3_01_JDR */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = P3_01_JDR; sourceTree = BUILT_PRODUCTS_DIR; };
 		04836E8825DB221C005AC7D6 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		04836E9325DFC080005AC7D6 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		04836E9625DFC212005AC7D6 /* Heroes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heroes.swift; sourceTree = "<group>"; };
+		04836E9925DFC23F005AC7D6 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +64,9 @@
 			isa = PBXGroup;
 			children = (
 				04836E8825DB221C005AC7D6 /* main.swift */,
+				04836E9925DFC23F005AC7D6 /* Game.swift */,
+				04836E9325DFC080005AC7D6 /* Player.swift */,
+				04836E9625DFC212005AC7D6 /* Heroes.swift */,
 			);
 			path = P3_01_JDR;
 			sourceTree = "<group>";
@@ -119,7 +128,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04836E9725DFC212005AC7D6 /* Heroes.swift in Sources */,
+				04836E9425DFC080005AC7D6 /* Player.swift in Sources */,
 				04836E8925DB221C005AC7D6 /* main.swift in Sources */,
+				04836E9A25DFC23F005AC7D6 /* Game.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -67,10 +67,5 @@ class Hero {
         equipmentInGame = equipmentBase
     }
 }
-
-class Barbare:Hero {
-    
-    }
-    
     
 

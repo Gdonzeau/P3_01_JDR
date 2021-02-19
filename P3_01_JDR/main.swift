@@ -35,10 +35,11 @@ player1.heroes[i].changeWeapon()
 for i in 0..<3 {
 player2.heroes[i].changeWeapon()
 }
+ */
 // Mettre le code en dessous dans une fonction, mais pas ce soir.
 for i in 0..<3 {
 print("\(player1.heroes[i].name) est un \(player1.heroes[i].classe)")
-print("Il possède \(player1.heroes[i].equipmentBase),")
+print("Il possède \(player1.heroes[i].equipmentInGame),")
 if player1.heroes[i].attack > 0 {
     print("une attaque de \(player1.heroes[i].attack)")
     }
@@ -46,12 +47,12 @@ if player1.heroes[i].attack > 0 {
         print("soigne \(-player1.heroes[i].attack) PV, ")
         
     }
-    print("et a \(player1.heroes[i].HP) PV \n")
+    print("et a \(player1.heroes[i].HPClass) PV \n")
 }
 
 for i in 0..<3 {
     print("\(player2.heroes[i].name) est un \(player2.heroes[i].classe)")
-    print("Il possède \(player2.heroes[i].equipmentBase),")
+    print("Il possède \(player2.heroes[i].equipmentClass),")
     if player2.heroes[i].attack > 0 {
         print("une attaque de \(player2.heroes[i].attack)")
         }
@@ -61,4 +62,4 @@ for i in 0..<3 {
         }
         print("et a \(player2.heroes[i].HP) PV \n")
     }
-*/
+

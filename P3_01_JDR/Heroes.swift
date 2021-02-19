@@ -9,6 +9,9 @@ import Foundation
 
 class Hero {
     var name: String
+    var nameClass = ["Barbare","Mage"]
+    var EquipmentClass = ["une épée","un sort de soin"]
+    var HPClass = [120,80]
     //var classe = ""
     
     var classe:String
@@ -17,7 +20,7 @@ class Hero {
         self.classe = classe
         self.name = name
     }
-    
+    /*
     var equipmentBase:String {
         get {
             switch classe {
@@ -30,10 +33,12 @@ class Hero {
             }
         }
     }
+ */
     // Idée pour plus tard : introduire plusieurs tableaux pour le switch pour pouvoir changer facilement les caractéristiques et rajouter des types de héros.
     // Chaque tableau aurait au même "i" les caractéristiques de la même classe. Ex: tableau 1 : Barbare, tableau 2 : une épée, tableau 3 : 120 PV, etc.
-    var equipmentInGame = String()
     
+    var equipmentInGame = String()
+    /*
     var HP:Int {
         get {
             switch classe {
@@ -46,6 +51,7 @@ class Hero {
             }
         }
     }
+    */
     var attack:Int {
         get {
             switch equipmentInGame {
@@ -64,16 +70,22 @@ class Hero {
             }
         }
     }
+    /*
     func changeWeapon() {
         equipmentInGame = equipmentBase
     }
+ */
 }
 
 class Barbare:Hero {
-    //override var HP: Int = 120
+    var classNumber = 0 // Colonne des tableaux de carac
+    var HP = game.HPClass[0]
+    var equipment = game.EquipmentClass[0]
     }
 class Mage:Hero {
-    
+    var classNumber = 1
+    var HP = game.HPClass[1]
+    var equipment = game.EquipmentClass[1]
     }
     
     

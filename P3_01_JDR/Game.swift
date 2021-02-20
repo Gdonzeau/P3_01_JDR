@@ -41,8 +41,8 @@ class Game {
                 else {
                     player2.name = namePlayer2
                     print("Bonjour \(player2.name).")
-                }
             }
+        }
     }
     
     func checkPlayerName(nameToCheck: String) -> Bool {
@@ -58,65 +58,7 @@ class Game {
         return nameAlreadyExists
     }
     
-    // MARK: Nom des héros
-    
-    
-    // MARK: Assignation des classes aux héros
-    
-    
-    
-    
-    func createHeroes() {
-        for count in 0..<numberOfHeroes*numberOfPlayers {
-           // if let nameHero = askName(count: count) {
-            if count == 0 && player1.heroes.count == 0{
-                    if let nameHero = askName(count: count) {
-                    let waitingName = nameHero // On a vérifié que le nom n'existe pas. On le stocke dans une variable pour la suite.
-                    print("J'envoie \(waitingName) se faire assigner une classe")
-                    // Et on passe à la classe
-                    onAssigneUneClasse(count: count,waitingName:waitingName)
-                    }
-                }
-            if count == 0 && player1.heroes.count > 0 {
-                if let nameHero = askName(count: count) {
-                    
-                }
-            }
-                else {
-                   // if count < 3 {
-                    if let nameHero = askName(count: count) {
-          //  if player1.heroes.count > 0 {
-               // if player1.heroes[count-1].name == "" || player2.heroes[count-1].name == "" {
-            // Ajouter ligne pour s'arrêter aux cases ""
-        //    if (count < player1.heroes.count && player1.heroes[count].name == "") { //|| (count > player1.heroes.count-1 && player2.heroes[count-player1.heroes.count].name == "") {
-         //   askName(count:count)
-            /*
-            func askName() {
-            if count<numberOfHeroes {
-                print("\(player1.name), comment appelez-vous votre héros \(count+1)?")
-            }
-            else {
-                print("\(player2.name), comment appelez-vous votre héros \(count-numberOfHeroes+1) ?")
-            }
-        }
-            */
-          //  if let nameHero = askName(count: count) {
-                    
-                print("Ok, je reçois \(nameHero)")
-                if (checkHeroesNameBis(nameToCheck: nameHero)) { // Si un nom identique existe, on ne remplit pas la case nom et on relance la fonction
-                   createHeroes()
-                }
-                else {
-                    let waitingName = nameHero // On a vérifié que le nom n'existe pas. On le stocke dans une variable pour la suite.
-                    print("J'envoie \(waitingName) se faire assigner une classe")
-                    // Et on passe à la classe
-                    onAssigneUneClasse(count: count,waitingName:waitingName)
-                }
-            }
-           }
-       // }
-        }
-    }
+    // MARK: Assignation des noms et des classes aux héros
     
     func creationHeroes(Startcount:Int) {
     for count in Startcount..<numberOfHeroes*numberOfPlayers {
@@ -170,9 +112,9 @@ class Game {
                 else {
                     let waitingName = nameHero
                     onAssigneUneClasse(count: count,waitingName:waitingName)
+                    break
+                    }
                 }
-            }
-            
             }
         }
     }
@@ -193,19 +135,10 @@ class Game {
 }
     
     func checkHeroesNameBis(nameToCheck: String) -> Bool {
+        nameAlreadyExists = false // En attendant la preuve du contraire, le nom est unique
         print("Vérif")
-        /*
-        for i in 0 ..< player1.heroes.count { // On fait un tableau interne de la liste des noms.
-            print("\(player1.heroes[i].name)")
-            var verif = [String]()
-            verif.append(player1.heroes[i].name)
-        }
-        */
-        
     for i in 0 ..< player1.heroes.count {
         print("Je vérifie le tableau P1")
-     //   for name in player1.heroes[i].name {
-           // if nameToCheck == String(name) {
             if nameToCheck == player1.heroes[i].name {
                 print("Ce nom existe déjà.")
                 nameAlreadyExists = true
@@ -214,13 +147,11 @@ class Game {
             else {
                 print("\(nameToCheck) est différent de \(player1.heroes[i].name)")
             }
-      //  }
     }
         print("P1")
     for i in 0 ..< player2.heroes.count {
         print("Je vérifie le tableau P2")
-      //  for name in player2.heroes[i].name {
-      //      if nameToCheck == String(name) {
+        if nameAlreadyExists {break}
         if nameToCheck == player2.heroes[i].name {
                 print("Ce nom existe déjà.")
                 nameAlreadyExists = true
@@ -257,7 +188,6 @@ class Game {
         else {
         switch Int(text) {
         case 1 :
-        //player1.heroes[i].classe = "Barbare"
             player2.heroes.append(Barbare(classe: "Barbare", name: waitingName))
         case 2 :
             player2.heroes.append(Mage(classe: "Mage", name: waitingName))

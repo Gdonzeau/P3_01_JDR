@@ -68,6 +68,27 @@ class Game {
     
     func createHeroes() {
         for count in 0..<numberOfHeroes*numberOfPlayers {
+           // if let nameHero = askName(count: count) {
+            if count == 0 && player1.heroes.count == 0{
+                    if let nameHero = askName(count: count) {
+                    let waitingName = nameHero // On a vérifié que le nom n'existe pas. On le stocke dans une variable pour la suite.
+                    print("J'envoie \(waitingName) se faire assigner une classe")
+                    // Et on passe à la classe
+                    onAssigneUneClasse(count: count,waitingName:waitingName)
+                    }
+                }
+            if count == 0 && player1.heroes.count > 0 {
+                if let nameHero = askName(count: count) {
+                    
+                }
+            }
+                else {
+                   // if count < 3 {
+                    if let nameHero = askName(count: count) {
+          //  if player1.heroes.count > 0 {
+               // if player1.heroes[count-1].name == "" || player2.heroes[count-1].name == "" {
+            // Ajouter ligne pour s'arrêter aux cases ""
+        //    if (count < player1.heroes.count && player1.heroes[count].name == "") { //|| (count > player1.heroes.count-1 && player2.heroes[count-player1.heroes.count].name == "") {
          //   askName(count:count)
             /*
             func askName() {
@@ -79,19 +100,79 @@ class Game {
             }
         }
             */
-            if let nameHero = askName(count: count) {
+          //  if let nameHero = askName(count: count) {
+                    
                 print("Ok, je reçois \(nameHero)")
                 if (checkHeroesNameBis(nameToCheck: nameHero)) { // Si un nom identique existe, on ne remplit pas la case nom et on relance la fonction
-                   askName(count:count)
-                    //break
+                   createHeroes()
                 }
                 else {
                     let waitingName = nameHero // On a vérifié que le nom n'existe pas. On le stocke dans une variable pour la suite.
                     print("J'envoie \(waitingName) se faire assigner une classe")
                     // Et on passe à la classe
                     onAssigneUneClasse(count: count,waitingName:waitingName)
-                    
                 }
+            }
+           }
+       // }
+        }
+    }
+    
+    func creationHeroes(Startcount:Int) {
+    for count in Startcount..<numberOfHeroes*numberOfPlayers {
+        if let nameHero = askName(count: count) {
+            if count == 0 {
+                let waitingName = nameHero // On a vérifié que le nom n'existe pas. On le stocke dans une variable pour la suite.
+                print("J'envoie \(waitingName) se faire assigner une classe")
+                // Et on passe à la classe
+                onAssigneUneClasse(count: count,waitingName:waitingName)
+            }
+            else if count == 1 {
+                if (checkHeroesNameBis(nameToCheck: nameHero)) { // Si un nom identique existe, on ne remplit pas la case nom et on relance la fonction
+                    creationHeroes(Startcount:count)
+                }
+                else {
+                    let waitingName = nameHero
+                    onAssigneUneClasse(count: count,waitingName:waitingName)
+                }
+            }
+            else if count == 2 {
+                if (checkHeroesNameBis(nameToCheck: nameHero)) { // Si un nom identique existe, on ne remplit pas la case nom et on relance la fonction
+                    creationHeroes(Startcount:count)
+                }
+                else {
+                    let waitingName = nameHero
+                    onAssigneUneClasse(count: count,waitingName:waitingName)
+                }
+            }
+            else if count == 3 {
+                if (checkHeroesNameBis(nameToCheck: nameHero)) { // Si un nom identique existe, on ne remplit pas la case nom et on relance la fonction
+                    creationHeroes(Startcount:count)
+                }
+                else {
+                    let waitingName = nameHero
+                    onAssigneUneClasse(count: count,waitingName:waitingName)
+                }
+            }
+            else if count == 4 {
+                if (checkHeroesNameBis(nameToCheck: nameHero)) { // Si un nom identique existe, on ne remplit pas la case nom et on relance la fonction
+                    creationHeroes(Startcount:count)
+                }
+                else {
+                    let waitingName = nameHero
+                    onAssigneUneClasse(count: count,waitingName:waitingName)
+                }
+            }
+            else if count == 5 {
+                if (checkHeroesNameBis(nameToCheck: nameHero)) { // Si un nom identique existe, on ne remplit pas la case nom et on relance la fonction
+                    creationHeroes(Startcount:count)
+                }
+                else {
+                    let waitingName = nameHero
+                    onAssigneUneClasse(count: count,waitingName:waitingName)
+                }
+            }
+            
             }
         }
     }
@@ -131,7 +212,6 @@ class Game {
                 break
             }
             else {
-               // print("\(nameToCheck) est différent de \(name)")
                 print("\(nameToCheck) est différent de \(player1.heroes[i].name)")
             }
       //  }

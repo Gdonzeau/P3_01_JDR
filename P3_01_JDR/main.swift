@@ -19,7 +19,8 @@ var player2 = Player()
 game.giveNameToPlayer1()
 game.giveNameToPlayer2()
 
-game.createHeroes()
+//game.createHeroes()
+game.creationHeroes(Startcount: 0)
 
 print("Le joueur \(player1.name) a les héros \(player1.heroes[0].name), \(player1.heroes[1].name), \(player1.heroes[2].name)")
 print("Le joueur \(player2.name) a les héros \(player2.heroes[0].name), \(player2.heroes[1].name), \(player2.heroes[2].name)")
@@ -52,7 +53,7 @@ if player1.heroes[i].attack > 0 {
 
 for i in 0..<3 {
     print("\(player2.heroes[i].name) est un \(player2.heroes[i].classe)")
-    print("Il possède \(player2.heroes[i].equipmentClass),")
+    print("Il possède \(player2.heroes[i].equipmentInGame),")
     if player2.heroes[i].attack > 0 {
         print("une attaque de \(player2.heroes[i].attack)")
         }
@@ -60,6 +61,6 @@ for i in 0..<3 {
             print("soigne \(-player2.heroes[i].attack) PV, ")
             
         }
-        print("et a \(player2.heroes[i].HP) PV \n")
+        print("et a \(player2.heroes[i].HPClass) PV \n")
     }
 

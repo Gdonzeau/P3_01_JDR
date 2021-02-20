@@ -10,9 +10,13 @@ import Foundation
 class Game {
     var numberOfPlayers = 2
     var numberOfHeroes = 3
-    var nameClass = ["Barbare","Mage"]
-    var EquipmentClass = ["une épée","un sort de soin"]
-    var HPClass = [120,80]
+    
+    // MARK: Tableau des caractéristiques de classes
+    var nameClass = ["Barbare","Mage"] // Nom de la classe
+    var EquipmentClass = ["une épée","un sort de soin"] // Équipement de base
+    var HPClass = [120,80] // Points de vie
+    
+    
     enum gameState {
         case over
         case going
@@ -44,7 +48,7 @@ class Game {
             }
         }
     }
-    
+    // On vérifie que le nom du joueur n'est pas déjà pris
     func checkPlayerName(nameToCheck: String) -> Bool {
         
         if nameToCheck == player1.name {

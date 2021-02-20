@@ -48,7 +48,7 @@ if player1.heroes[i].attack > 0 {
         print("soigne \(-player1.heroes[i].attack) PV, ")
         
     }
-    print("et a \(player1.heroes[i].HPClass) PV \n")
+    print("et a \(player1.heroes[i].HP) PV \n")
 }
 
 for i in 0..<3 {
@@ -61,6 +61,6 @@ for i in 0..<3 {
             print("soigne \(-player2.heroes[i].attack) PV, ")
             
         }
-        print("et a \(player2.heroes[i].HPClass) PV \n")
+        print("et a \(player2.heroes[i].HP) PV \n")
     }
 

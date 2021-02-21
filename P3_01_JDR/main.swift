@@ -20,7 +20,7 @@ game.giveNameToPlayer1()
 game.giveNameToPlayer2()
 
 //game.createHeroes()
-game.creationHeroes(Startcount: 0)
+game.creationHeroes(startCount: 0,endCount: 6)
 
 print("Le joueur \(player1.name) a les héros \(player1.heroes[0].name), \(player1.heroes[1].name) et \(player1.heroes[2].name)")
 print("Le joueur \(player2.name) a les héros \(player2.heroes[0].name), \(player2.heroes[1].name) et \(player2.heroes[2].name)")

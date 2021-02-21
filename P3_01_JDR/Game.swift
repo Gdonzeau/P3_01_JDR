@@ -76,6 +76,7 @@ class Game {
     
     func creationHeroes(Startcount:Int) {
     for count in Startcount..<numberOfHeroes*numberOfPlayers {
+        
         if let nameHero = askName(count: count) {
             
             if count == 0 {
@@ -95,7 +96,7 @@ class Game {
                     onAssigneUneClasse(count: count,waitingName:waitingName)
                 }
             }
-           // else if count == 5 {
+          //  else if count == 5 {
                 else {
                     print("dernier héros")
                 if (checkHeroesNameBis(nameToCheck: nameHero)) { // Si un nom identique existe, on ne remplit pas la case nom et on relance la fonction
@@ -114,6 +115,13 @@ class Game {
     }
     
     func askName(count:Int) ->String?{
+        var NamesInUse = [String]()
+        for i in 0..<player1.heroes.count {
+            NamesInUse.append(player1.heroes[i].name)
+        }
+        for i in 0..<player2.heroes.count {
+            NamesInUse.append(player2.heroes[i].name)
+        }
         var retour = ""
     if count<numberOfHeroes {
         print("\(player1.name), comment appelez-vous votre héros \(count+1)?")
@@ -125,6 +133,12 @@ class Game {
             retour = nameHero
         }
         print("\(retour)")
+        for name in NamesInUse {
+            if retour == name {
+                print("\(retour) est déjà pris")
+                askName(count: count)
+            }
+        }
         return retour
 }
     

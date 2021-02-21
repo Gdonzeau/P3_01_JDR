@@ -31,9 +31,10 @@ class Game {
     
     var HPPlayer1 = 0
     var HPPlayer2 = 0
-    var Attacker = Hero(classe: "", name: "")
-    var Attacked = Hero(classe: "", name: "")
-    
+    var Attacker = Hero(classe: "", name: "", HPInGame: 10)
+    var Attacked = Hero(classe: "", name: "", HPInGame: 10)
+    var nbAttacker = 0
+    var nbAttacked = 0
     // MARK: Nom des joueurs
     
     func giveNameToPlayer1() {
@@ -170,9 +171,9 @@ class Game {
             switch Int(text) {
             case 1 :
             //player1.heroes[i].classe = "Barbare"
-                player1.heroes.append(Barbare(classe: "Barbare", name: waitingName))
+                player1.heroes.append(Barbare(classe: "Barbare", name: waitingName, HPInGame: game.HPClass[0]))
             case 2 :
-                player1.heroes.append(Mage(classe: "Mage", name: waitingName))
+                player1.heroes.append(Mage(classe: "Mage", name: waitingName,HPInGame: game.HPClass[1]))
             default :
                 print("Je n'ai pas compris. Répétez, s'il vous plaît.")
                 onAssigneUneClasse(count:count,waitingName: waitingName)
@@ -181,9 +182,9 @@ class Game {
         else {
         switch Int(text) {
         case 1 :
-            player2.heroes.append(Barbare(classe: "Barbare", name: waitingName))
+            player2.heroes.append(Barbare(classe: "Barbare", name: waitingName,HPInGame: game.HPClass[0]))
         case 2 :
-            player2.heroes.append(Mage(classe: "Mage", name: waitingName))
+            player2.heroes.append(Mage(classe: "Mage", name: waitingName,HPInGame: game.HPClass[1]))
         default :
             print("Je n'ai pas compris. Répétez, s'il vous plaît.")
            onAssigneUneClasse(count: count, waitingName: waitingName)
@@ -223,19 +224,19 @@ class Game {
     func HPPlayers() {
         HPPlayer1 = 0
         for i in 0 ..< player1.heroes.count {
-           HPPlayer1 += player1.heroes[i].HP
+           HPPlayer1 += player1.heroes[i].HPInGame
         }
         print("Il reste \(HPPlayer1) aux héros de \(player1.name)")
         HPPlayer2 = 0
         for i in 0 ..< player2.heroes.count {
-           HPPlayer2 += player2.heroes[i].HP
+           HPPlayer2 += player2.heroes[i].HPInGame
         }
         print("Il reste \(HPPlayer2) aux héros de \(player2.name)")
     }
         
     // MARK: Combat entre les héros
     func startFight() {
-        // while les deux joueurs ont encore des HP
+        
         let pièce = Int(arc4random_uniform(UInt32(2)))
         if pièce == 0 {
             print("\(player1.name) commence.")
@@ -245,114 +246,137 @@ class Game {
             print("\(player2.name) commence.")
             player2.myGo = true
         }
-        
+        while HPPlayer1 > 0 && HPPlayer2 > 0 { // while les deux joueurs ont encore des HP
         if player1.myGo {
             print("\(player1.name), qui envoyez-vous au combat ?")
-            if player1.heroes[0].HP > 0 {
+            if player1.heroes[0].HPInGame > 0 {
                 print("1. \(player1.heroes[0].name) ?")
             }
-            if player1.heroes[1].HP > 0 {
+            if player1.heroes[1].HPInGame > 0 {
                 print("2. \(player1.heroes[1].name) ?")
             }
-            if player1.heroes[2].HP > 0 {
+            if player1.heroes[2].HPInGame > 0 {
                 print("3. \(player1.heroes[2].name) ?")
             }
-            if let answer = readLine() {
-                Attacker = player1.heroes[Int(answer)!-1]
+            if let answer1 = readLine() {
+                Attacker = player1.heroes[Int(answer1)!-1]
+                nbAttacker = Int(answer1)!-1
             }
             if Attacker.attack > 0 {
             print("Qui souhaitez-vous attaquer ?")
-            if player2.heroes[0].HP > 0 {
+            if player2.heroes[0].HPInGame > 0 {
                 print("1. \(player2.heroes[0].name) ?")
             }
-            if player2.heroes[1].HP > 0 {
+            if player2.heroes[1].HPInGame > 0 {
                 print("2. \(player2.heroes[1].name) ?")
             }
-            if player2.heroes[2].HP > 0 {
+            if player2.heroes[2].HPInGame > 0 {
                 print("3. \(player2.heroes[2].name) ?")
             }
-            if let answer = readLine() {
-                Attacked = player2.heroes[Int(answer)!-1]
+            if let answer2 = readLine() {
+                Attacked = player2.heroes[Int(answer2)!-1]
+                nbAttacked = Int(answer2)!-1
             }
-            Fight(Attacker:Attacker, Attacked: Attacked)
+            Fight(Attacker:Attacker,nbAttacker:nbAttacker,Attacked:Attacked,nbAttacked:nbAttacked)
             }
             else {
                 print("Qui souhaitez-vous soigner ?")
-                if player1.heroes[0].HP > 0 {
+                if player1.heroes[0].HPInGame > 0 {
                     print("1. \(player1.heroes[0].name) ?")
                 }
-                if player1.heroes[1].HP > 0 {
+                if player1.heroes[1].HPInGame > 0 {
                     print("2. \(player1.heroes[1].name) ?")
                 }
-                if player1.heroes[2].HP > 0 {
+                if player1.heroes[2].HPInGame > 0 {
                     print("3. \(player1.heroes[2].name) ?")
                 }
-                if let answer = readLine() {
-                    Attacked = player2.heroes[Int(answer)!-1]
+                if let answer2 = readLine() {
+                    Attacked = player2.heroes[Int(answer2)!-1]
+                    nbAttacked = Int(answer2)!-1
                 }
-                Fight(Attacker:Attacker, Attacked: Attacked)
+                Fight(Attacker:Attacker,nbAttacker:nbAttacker,Attacked:Attacked,nbAttacked:nbAttacked)
                 }
-            
         }
         if player2.myGo {
             print("\(player2.name), qui envoyez-vous au combat ?")
-            if player2.heroes[0].HP > 0 {
+            if player2.heroes[0].HPInGame > 0 {
                 print("1. \(player2.heroes[0].name) ?")
             }
-            if player2.heroes[1].HP > 0 {
+            if player2.heroes[1].HPInGame > 0 {
                 print("2. \(player2.heroes[1].name) ?")
             }
-            if player2.heroes[2].HP > 0 {
+            if player2.heroes[2].HPInGame > 0 {
                 print("3. \(player2.heroes[2].name) ?")
             }
-            if let answer = readLine() {
-                Attacker = player1.heroes[Int(answer)!-1]
+            if let answer1 = readLine() {
+                Attacker = player2.heroes[Int(answer1)!-1]
+                nbAttacker = Int(answer1)!-1
             }
             if Attacker.attack > 0 {
             print("Qui souhaitez-vous attaquer ?")
-            if player1.heroes[0].HP > 0 {
+            if player1.heroes[0].HPInGame > 0 {
                 print("1. \(player1.heroes[0].name) ?")
             }
-            if player1.heroes[1].HP > 0 {
+            if player1.heroes[1].HPInGame > 0 {
                 print("2. \(player1.heroes[1].name) ?")
             }
-            if player1.heroes[2].HP > 0 {
+            if player1.heroes[2].HPInGame > 0 {
                 print("3. \(player1.heroes[2].name) ?")
             }
-            if let answer = readLine() {
-                Attacked = player2.heroes[Int(answer)!-1]
+            if let answer2 = readLine() {
+                Attacked = player1.heroes[Int(answer2)!-1]
+                nbAttacked = Int(answer2)!-1
             }
-            Fight(Attacker:Attacker, Attacked: Attacked)
+            Fight(Attacker:Attacker,nbAttacker:nbAttacker,Attacked:Attacked,nbAttacked:nbAttacked)
             }
             else {
                 print("Qui souhaitez-vous soigner ?")
-                if player2.heroes[0].HP > 0 {
+                if player2.heroes[0].HPInGame > 0 {
                     print("1. \(player2.heroes[0].name) ?")
                 }
-                if player2.heroes[1].HP > 0 {
+                if player2.heroes[1].HPInGame > 0 {
                     print("2. \(player2.heroes[1].name) ?")
                 }
-                if player2.heroes[2].HP > 0 {
+                if player2.heroes[2].HPInGame > 0 {
                     print("3. \(player2.heroes[2].name) ?")
                 }
-                if let answer = readLine() {
-                    Attacked = player2.heroes[Int(answer)!-1]
+                if let answer2 = readLine() {
+                    Attacked = player2.heroes[Int(answer2)!-1]
+                    nbAttacked = Int(answer2)!-1
                 }
-                Fight(Attacker:Attacker, Attacked: Attacked)
+                Fight(Attacker:Attacker,nbAttacker:nbAttacker,Attacked:Attacked,nbAttacked:nbAttacked)
             }
         }
+        game.HPPlayers()
         player1.myGo = !player1.myGo
-        
+        player2.myGo = !player2.myGo
+    } // Fin du while
+        print("Combat terminé.")
     }
     
     
-    func Fight(Attacker:Hero,Attacked:Hero) { // Changer String. Envoyer le player.hero[rang] pour accéder facilement aux propriétés des héros
-        if Attacker.attack > 0 {
+    func Fight(Attacker:Hero,nbAttacker:Int,Attacked:Hero,nbAttacked:Int) { // Changer String. Envoyer le player.hero[rang] pour accéder facilement aux propriétés des héros
+        if Attacker.attack > 0 {                                            // En fait en possédant le numéro, Attacker et Attacked ne sont plus utiles
             print("\(Attacker.name) tape sur \(Attacked.name)")
-            
+            if (player1.myGo) {
+                player2.heroes[nbAttacked].HPInGame -= player1.heroes[nbAttacker].attack
+                print("\(player2.heroes[nbAttacked].name) perd \(player1.heroes[nbAttacker].attack)PV. Il lui reste \(player2.heroes[nbAttacked].HPInGame)PV")
+            }
+            else {
+                    player1.heroes[nbAttacked].HPInGame -= player2.heroes[nbAttacker].attack
+                print("\(player1.heroes[nbAttacked].name) perd \(player2.heroes[nbAttacker].attack)PV. Il lui reste \(player1.heroes[nbAttacked].HPInGame)PV")
+                }
         }
         else {
             print("\(Attacker.name) soigne \(Attacked.name)")
+            if (player1.myGo) {
+                player1.heroes[nbAttacked].HPInGame -= player1.heroes[nbAttacker].attack
+                print("\(player1.heroes[nbAttacked].name) gagne \(-player1.heroes[nbAttacker].attack)PV. Il a maintenant \(player1.heroes[nbAttacked].HPInGame)PV")
+            }
+            else {
+                    player2.heroes[nbAttacked].HPInGame -= player2.heroes[nbAttacker].attack
+                print("\(player2.heroes[nbAttacked].name) gagne \(-player2.heroes[nbAttacker].attack)PV. Il a maintenant \(player2.heroes[nbAttacked].HPInGame)PV")
+                }
         }
     }
 }

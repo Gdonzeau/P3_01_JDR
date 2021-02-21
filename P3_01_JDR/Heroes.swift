@@ -11,10 +11,12 @@ class Hero {
     var name: String
     var classe:String
     var HPInGame:Int
-    init (classe:String,name:String,HPInGame:Int) {
+    var equipmentInGame:String
+    init (classe:String,name:String,HPInGame:Int,equipmentInGame:String) {
         self.classe = classe
         self.name = name
         self.HPInGame = HPInGame
+        self.equipmentInGame = equipmentInGame
     }
     var HP:Int {
         return 40
@@ -32,16 +34,16 @@ class Hero {
     
     var attack:Int {
         get {
-            switch equipment {
-            case game.equipementPossible[0]:
+            switch equipmentInGame {
+            case game.possibleEquipment[0]:
                 return game.woundsCausedByEquipment[0]
-            case game.equipementPossible[1]:
+            case game.possibleEquipment[1]:
                 return game.woundsCausedByEquipment[1]
-            case game.equipementPossible[2]:
+            case game.possibleEquipment[2]:
                 return game.woundsCausedByEquipment[2]
-            case game.equipementPossible[3]:
+            case game.possibleEquipment[3]:
                 return game.woundsCausedByEquipment[3]
-            case game.equipementPossible[4]:
+            case game.possibleEquipment[4]:
                 return game.woundsCausedByEquipment[4]
                 /*
             case "un poignard":

@@ -73,7 +73,7 @@ class Game {
     }
     
     // MARK: Assignation des noms et des classes aux héros
-    
+    /*
     func creationHeroes(Startcount:Int) {
     for count in Startcount..<numberOfHeroes*numberOfPlayers {
         
@@ -86,6 +86,7 @@ class Game {
                 // Et on passe à la classe
                 onAssigneUneClasse(count: count,waitingName:waitingName)
             }
+            /*
             else if count <= 4 {
                 print("héros \(count+1)")
                 if (checkHeroesNameBis(nameToCheck: nameHero)) { // Si un nom identique existe, on ne remplit pas la case nom et on relance la fonction
@@ -103,13 +104,28 @@ class Game {
                     print("encore un essai")
                     creationHeroes(Startcount:count)
                 }
+                */
                 else {
                     let waitingName = nameHero
                     onAssigneUneClasse(count: count,waitingName:waitingName)
                     print("Et voilà.")
                     //break
                     }
-                }
+           //     }
+            }
+        }
+    }
+    */
+    func creationHeroes(Startcount:Int) {
+    for count in Startcount..<numberOfHeroes*numberOfPlayers {
+        
+        if let nameHero = askName(count: count) {
+            
+                print("premier héros")
+                let waitingName = nameHero // On a vérifié que le nom n'existe pas. On le stocke dans une variable pour la suite.
+                print("J'envoie \(waitingName) se faire assigner une classe")
+                // Et on passe à la classe
+                onAssigneUneClasse(count: count,waitingName:waitingName)
             }
         }
     }
@@ -136,12 +152,14 @@ class Game {
         for name in NamesInUse {
             if retour == name {
                 print("\(retour) est déjà pris")
-                askName(count: count)
+                //askName(count: count)
+                creationHeroes(Startcount: count)
+                //break
             }
         }
         return retour
 }
-    
+ /*
     func checkHeroesNameBis(nameToCheck: String) -> Bool {
         nameAlreadyExists = false // En attendant la preuve du contraire, le nom est unique
         print("Vérif")
@@ -175,7 +193,7 @@ class Game {
         print("nameAlreadyExists = \(nameAlreadyExists)")
     return nameAlreadyExists
     }
-    
+    */
     func onAssigneUneClasse(count:Int,waitingName:String) {
     print("Quelle carrière affectez-vous à votre perso \(waitingName) ?"
     + "\n 1.Barbare"

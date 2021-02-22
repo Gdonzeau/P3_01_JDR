@@ -8,6 +8,7 @@
 import Foundation
 
 class Game {
+    var gameTurn = 0 // Pour calculer le nombre de tours de jeu
     var numberOfPlayers = 2
     var numberOfHeroes = 3 // A part le tableau de combat qui n'est pas en for et qui affiche 3 héros, on peut modifier le nombre pour augmenter/diminuer le nombre de héros
     let probabilityOfChest = 90 // Pourcentage de chance d'apparition d'un coffre
@@ -225,6 +226,13 @@ class Game {
         if player1.myGo {                       // On peut facilement simplifier ces écritures par des boucles for ou on laisse comme ça pour une meilleure lisiblité ?
             // Si elle est vraiment considérée comme meilleure...
             print("\(player1.name), qui envoyez-vous au combat ?")
+            
+            for i in 0..<numberOfHeroes {
+                if player1.heroes[i].HPInGame > 0 {
+                    print("[\(i+1)]. \(player1.heroes[i].name) ?")
+                }
+            }
+            /*
             if player1.heroes[0].HPInGame > 0 {
                 print("1. \(player1.heroes[0].name) ?")
             }
@@ -234,13 +242,16 @@ class Game {
             if player1.heroes[2].HPInGame > 0 {
                 print("3. \(player1.heroes[2].name) ?")
             }
+            */
             if let answer1 = readLine() {
                 Attacker = player1.heroes[Int(answer1)!-1]
                 nbAttacker = Int(answer1)!-1
                 magicChest(playingHero: Attacker)
             }
+            
             if Attacker.attack > 0 {
             print("Qui souhaitez-vous attaquer ?")
+                /*
             if player2.heroes[0].HPInGame > 0 {
                 print("1. \(player2.heroes[0].name) ? PV restants : \(player2.heroes[0].HPInGame)")
             }
@@ -250,6 +261,12 @@ class Game {
             if player2.heroes[2].HPInGame > 0 {
                 print("3. \(player2.heroes[2].name) ? PV restants : \(player2.heroes[2].HPInGame)")
             }
+                */
+                for i in 0..<numberOfHeroes {
+                    if player2.heroes[i].HPInGame > 0 {
+                        print("[\(i+1)]. \(player2.heroes[i].name) ?")
+                    }
+                }
             if let answer2 = readLine() {
                 Attacked = player2.heroes[Int(answer2)!-1]
                 nbAttacked = Int(answer2)!-1
@@ -258,6 +275,12 @@ class Game {
             }
             else {
                 print("Qui souhaitez-vous soigner ?")
+                for i in 0..<numberOfHeroes {
+                    if player1.heroes[i].HPInGame > 0 {
+                        print("[\(i+1)]. \(player1.heroes[i].name) ?")
+                    }
+                }
+                /*
                 if player1.heroes[0].HPInGame > 0 {
                     print("1. \(player1.heroes[0].name) ?")
                 }
@@ -267,6 +290,7 @@ class Game {
                 if player1.heroes[2].HPInGame > 0 {
                     print("3. \(player1.heroes[2].name) ?")
                 }
+                */
                 if let answer2 = readLine() {
                     Attacked = player2.heroes[Int(answer2)!-1]
                     nbAttacked = Int(answer2)!-1
@@ -276,6 +300,12 @@ class Game {
         }
         if player2.myGo {
             print("\(player2.name), qui envoyez-vous au combat ?")
+            for i in 0..<numberOfHeroes {
+                if player2.heroes[i].HPInGame > 0 {
+                    print("[\(i+1)]. \(player2.heroes[i].name) ?")
+                }
+            }
+            /*
             if player2.heroes[0].HPInGame > 0 {
                 print("1. \(player2.heroes[0].name) ?")
             }
@@ -285,6 +315,7 @@ class Game {
             if player2.heroes[2].HPInGame > 0 {
                 print("3. \(player2.heroes[2].name) ?")
             }
+            */
             if let answer1 = readLine() {
                 Attacker = player2.heroes[Int(answer1)!-1]
                 nbAttacker = Int(answer1)!-1
@@ -292,15 +323,22 @@ class Game {
             }
             if Attacker.attack > 0 {
             print("Qui souhaitez-vous attaquer ?")
+                for i in 0..<numberOfHeroes {
+                    if player1.heroes[i].HPInGame > 0 {
+                        print("[\(i+1)]. \(player1.heroes[i].name) ?")
+                    }
+                }
+                /*
             if player1.heroes[0].HPInGame > 0 {
-                print("1. \(player1.heroes[0].name) ?")
+                print("1. \(player1.heroes[0].name) ? PV restants : \(player1.heroes[0].HPInGame)")
             }
             if player1.heroes[1].HPInGame > 0 {
-                print("2. \(player1.heroes[1].name) ?")
+                print("2. \(player1.heroes[1].name) ? PV restants : \(player1.heroes[0].HPInGame)")
             }
             if player1.heroes[2].HPInGame > 0 {
-                print("3. \(player1.heroes[2].name) ?")
+                print("3. \(player1.heroes[2].name) ? PV restants : \(player1.heroes[0].HPInGame)")
             }
+                */
             if let answer2 = readLine() {
                 Attacked = player1.heroes[Int(answer2)!-1]
                 nbAttacked = Int(answer2)!-1
@@ -309,6 +347,12 @@ class Game {
             }
             else {
                 print("Qui souhaitez-vous soigner ?")
+                for i in 0..<numberOfHeroes {
+                    if player2.heroes[i].HPInGame > 0 {
+                        print("[\(i+1)]. \(player2.heroes[i].name) ?")
+                    }
+                }
+                /*
                 if player2.heroes[0].HPInGame > 0 {
                     print("1. \(player2.heroes[0].name) ?")
                 }
@@ -318,6 +362,7 @@ class Game {
                 if player2.heroes[2].HPInGame > 0 {
                     print("3. \(player2.heroes[2].name) ?")
                 }
+                */
                 if let answer2 = readLine() {
                     Attacked = player2.heroes[Int(answer2)!-1]
                     nbAttacked = Int(answer2)!-1
@@ -341,7 +386,7 @@ class Game {
         joker = Int(arc4random_uniform(UInt32(game.possibleEquipment.count)))
         print("Le coffre contient \(game.possibleEquipment[joker])")
         }
-        print("Souhaitez-vous échanger \(playingHero.equipment) contre \(game.possibleEquipment[joker])")
+        print("Souhaitez-vous échanger \(playingHero.equipmentInGame) contre \(game.possibleEquipment[joker])")
         print("1. Oui")
         print("2. Non")
         

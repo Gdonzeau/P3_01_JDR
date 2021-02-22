@@ -29,14 +29,14 @@ game.statePlayer1()
 game.statePlayer2()
 
 /*
-//game.classAssignation()
-// Les héros préparent leur équipement
-for i in 0..<3 {
-player1.heroes[i].changeWeapon()
-}
-for i in 0..<3 {
-player2.heroes[i].changeWeapon()
-}
+ //game.classAssignation()
+ // Les héros préparent leur équipement
+ for i in 0..<3 {
+ player1.heroes[i].changeWeapon()
+ }
+ for i in 0..<3 {
+ player2.heroes[i].changeWeapon()
+ }
  */
 // Mettre le code en dessous dans une fonction, mais pas ce soir.
 

@@ -11,12 +11,19 @@ class Hero {
     var name: String
     var classe:String
     var HPInGame:Int
+    
+    var weapon = Weapon(damage: 30, name: "Marteau")
+    //weapon.damage
+    
+    
+    
     var equipmentInGame:String
     init (classe:String,name:String,HPInGame:Int,equipmentInGame:String) {
         self.classe = classe
         self.name = name
         self.HPInGame = HPInGame
         self.equipmentInGame = equipmentInGame
+        let damage = weapon.damage
     }
     var HP:Int {
         return 40
@@ -24,11 +31,11 @@ class Hero {
     
     var equipment:String {
         return "un petit bâton"
-            }
+    }
     var bonusAttack:Int {
         return 0
     }
-
+    
     // Idée pour plus tard : introduire plusieurs tableaux pour le switch pour pouvoir changer facilement les caractéristiques et rajouter des types de héros.
     // Chaque tableau aurait au même "i" les caractéristiques de la même classe. Ex: tableau 1 : Barbare, tableau 2 : une épée, tableau 3 : 120 PV, etc.
     
@@ -45,16 +52,16 @@ class Hero {
                 return game.woundsCausedByEquipment[3]
             case game.possibleEquipment[4]:
                 return game.woundsCausedByEquipment[4]
-                /*
-            case "un poignard":
-                return 20
-            case "un sort de soin":
-                return -40
-            case "une hache":
-                return 40
-            case "une masse d'arme":
-                return 50
-                */
+            /*
+             case "un poignard":
+             return 20
+             case "un sort de soin":
+             return -40
+             case "une hache":
+             return 40
+             case "une masse d'arme":
+             return 50
+             */
             default :
                 return 10
             }
@@ -67,14 +74,23 @@ class Barbare:Hero {
     override var HP:Int { game.HPClass[0] }
     //HPInGame = game.HPClass[0]
     override var equipment:String { game.equipmentClass[0] }
-    }
+}
 
 class Mage:Hero {
     var classNumber = 1
     override var HP:Int { game.HPClass[1] }
     //HPInGame = game.HPClass[1]
     override var equipment:String { game.equipmentClass[1] }
+}
+
+class Weapon {
+    var name:String
+    var damage:Int
+    init (damage:Int,name:String) {
+        self.damage=damage
+        self.name=name
     }
-    
-    
+}
+
+
 

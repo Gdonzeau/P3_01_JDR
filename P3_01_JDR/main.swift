@@ -13,9 +13,9 @@ var game = Game()
 var player1 = Player()
 var player2 = Player()
 
-
-
-
+var c = Barbare(classe: "Barbare", name: "Brutus", HPInGame: 10, equipmentInGame: "une masse", weapon: Weapon.init())
+print("\(c.damage), \(c.weapon.name)")
+/*
 game.giveNameToPlayer1()
 game.giveNameToPlayer2()
 
@@ -47,3 +47,4 @@ player2.state()
 game.HPPlayers()
 
 game.startFight()
+*/

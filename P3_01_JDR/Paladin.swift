@@ -9,7 +9,7 @@ import Foundation
 
 class Paladin:Hero {
     var classNumber = 0 // Colonne des tableaux de carac
-    override var HP:Int { game.HPClass[0] }
+    override var HP:Int { 80 }
     //HPInGame = game.HPClass[0]
     override var equipment:String { game.equipmentClass[0] }
 }

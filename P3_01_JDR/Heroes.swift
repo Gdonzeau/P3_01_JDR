@@ -11,25 +11,30 @@ class Hero {
     var name: String
     var classe:String
     var HPInGame:Int
-    var names = [String]()
+    static var names = [String]()
+    //{
+          //  return
+    //}
     
-  //  var weapon = Weapon(damage: 30, name: "Marteau")
-    var weapon = Weapon()
-    //weapon.damage
-    
-    
-    
+    //var weapon = Weapon()
+    var weapon: Weapon
     var equipmentInGame:String
-    init (classe:String,name:String,HPInGame:Int,equipmentInGame:String) {
+    var damage:Int
+    
+    init (classe:String,name:String,HPInGame:Int,equipmentInGame:String,weapon:Weapon) {
         self.classe = classe
         self.name = name
         self.HPInGame = HPInGame
         self.equipmentInGame = equipmentInGame
-        let damage = weapon.damage
-        self.names.append(name)
+        self.weapon = weapon
+     //   self.names.append(names)
+        self.damage = weapon.damage
+        //let damage = weapon.damage // Proposé lundi
+        
+      //  self.names.append(names)// Du coup, pas sûr
     }
     var HP:Int {
-        return 40
+        return self.HP
     }
     
     var equipment:String {
@@ -39,35 +44,9 @@ class Hero {
         return 0
     }
     
-    // Idée pour plus tard : introduire plusieurs tableaux pour le switch pour pouvoir changer facilement les caractéristiques et rajouter des types de héros.
-    // Chaque tableau aurait au même "i" les caractéristiques de la même classe. Ex: tableau 1 : Barbare, tableau 2 : une épée, tableau 3 : 120 PV, etc.
-    
     var attack:Int {
         get {
-            switch equipmentInGame {
-            case game.possibleEquipment[0]:
-                return game.woundsCausedByEquipment[0]
-            case game.possibleEquipment[1]:
-                return game.woundsCausedByEquipment[1]
-            case game.possibleEquipment[2]:
-                return game.woundsCausedByEquipment[2]
-            case game.possibleEquipment[3]:
-                return game.woundsCausedByEquipment[3]
-            case game.possibleEquipment[4]:
-                return game.woundsCausedByEquipment[4]
-            /*
-             case "un poignard":
-             return 20
-             case "un sort de soin":
-             return -40
-             case "une hache":
-             return 40
-             case "une masse d'arme":
-             return 50
-             */
-            default :
-                return 10
-            }
+            return self.damage
         }
     }
 }

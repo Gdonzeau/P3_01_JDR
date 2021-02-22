@@ -44,8 +44,8 @@ class Game {
     func giveNameToPlayer1() { // On demande son nom au premier joueur
         print("Bonjour Joueur 1. Comment vous appelez-vous ?")
         if let namePlayer1 = readLine() {
-            player1.name = namePlayer1
-            print("Bonjour \(player1.name).")
+            Player.name = namePlayer1
+            print("Bonjour \(Player.name).")
         }
     }
     func giveNameToPlayer2() { // On demande son nom au deuxième joueur
@@ -57,15 +57,15 @@ class Game {
             }
             
             else {
-                player2.name = namePlayer2
-                print("Bonjour \(player2.name).")
+                Player.name = namePlayer2
+                print("Bonjour \(Player.name).")
             }
         }
     }
     // On vérifie que le nom du joueur n'est pas déjà pris
     func checkPlayerName(nameToCheck: String) -> Bool { //
         
-        if nameToCheck == player1.name {
+        if nameToCheck == Player.name {
             print("Ce nom existe déjà.")
             
             nameAlreadyExists = true
@@ -75,140 +75,7 @@ class Game {
         }
         return nameAlreadyExists
     }
-    
-    // MARK: Noms et classes aux héros
-    
-    func creationHeroes(startCount:Int,endCount:Int) {
-        for count in startCount..<endCount {
-            
-            if let nameHero = askName(count: count) { // On demande et reçoit le nom du héros
-                if nameHero == "" { // Si le nom est déjà pris, "" est retourné
-                    creationHeroes(startCount: count,endCount: count+1) // Donc on redemande un nom
-                }
-                
-                else {
-                    let waitingName = nameHero // On a vérifié que le nom n'existe pas. On le stocke dans une constante pour la suite.
-                    print("J'envoie \(waitingName) se faire assigner une classe")
-                    // Et on passe au choix de la classe
-                    classAssignation(count: count,waitingName:waitingName)
-                }
-            }
-        }
-    }
-    
-    func askName(count:Int) ->String?{ // Fonction qui demande le nom et vérifie qu'il n'est pas déjà pris
-        nameAlreadyExists = false
-        var NamesInUse = [String]() // On crée un tableau
-        for i in 0..<player1.heroes.count { // dans lequel on met tous les noms des héros dejà créés par player1
-            NamesInUse.append(player1.heroes[i].name)
-        }
-        for i in 0..<player2.heroes.count { // et par player2
-            NamesInUse.append(player2.heroes[i].name)
-        }
-        var retour = String() // On crée également la variable String à retourner
-        //var обратно:String = "" // Super, ça marche aussi en russe
-        
-        if count<numberOfHeroes { // si on est dans la première moitié des héros, c'est player1 qui assigne un nom
-            print("\(player1.name), comment appelez-vous votre héros \(count+1)?")
-        }
-        else { // Sinon, c'est player2
-            print("\(player2.name), comment appelez-vous votre héros \(count-numberOfHeroes+1) ?")
-        }
-        if let nameHero = readLine() { // On récupère le nom proposé
-            
-            for name in NamesInUse { // Et on vérifie que le nom n'existe pas déjà
-                if nameHero == name {
-                    print("\(nameHero) est déjà pris")
-                    nameAlreadyExists = true
-                    break
-                }
-                else {
-                    print("Tout va bien") // print de debbug
-                }
-            }
-            retour = nameHero
-        }
-        if nameAlreadyExists {
-            retour = ""
-        }
-        
-        print("\(retour) revient") // print de debbug
-        
-        return retour
-    }
-    
-    func classAssignation(count:Int,waitingName:String) { // On recoit le nom proposé et on lui choisit une carrière
-        print("Quelle carrière affectez-vous à votre perso \(waitingName) ?"
-                + "\n 1.Barbare"
-                + "\n 2.Mage")
-        if let text = readLine() {
-            if count < numberOfHeroes {
-                switch Int(text) {
-                case 1 :
-                    //player1.heroes[i].classe = "Barbare"
-                    player1.heroes.append(Barbare(classe: game.nameClass[0], name: waitingName, HPInGame: game.HPClass[0],equipmentInGame: game.equipmentClass[0]))
-                case 2 :
-                    player1.heroes.append(Mage(classe: game.nameClass[1], name: waitingName,HPInGame: game.HPClass[1],equipmentInGame: game.equipmentClass[1]))
-                default :
-                    print("Je n'ai pas compris. Répétez, s'il vous plaît.")
-                    classAssignation(count:count,waitingName: waitingName)
-                }
-            }
-            else {
-                switch Int(text) {
-                case 1 :
-                    player2.heroes.append(Barbare(classe: game.nameClass[0], name: waitingName,HPInGame: game.HPClass[0],equipmentInGame: game.equipmentClass[0]))
-                case 2 :
-                    player2.heroes.append(Mage(classe: game.nameClass[1], name: waitingName,HPInGame: game.HPClass[1], equipmentInGame: game.equipmentClass[1]))
-                default :
-                    print("Je n'ai pas compris. Répétez, s'il vous plaît.")
-                    classAssignation(count: count, waitingName: waitingName)
-                }
-            }
-        }
-    }
-    
-    func statePlayer1() { // On présente les personnages du joueur 1
-        for i in 0..<player1.heroes.count {
-            print("\(player1.heroes[i].name) est un \(player1.heroes[i].classe)")
-            print("Il possède \(player1.heroes[i].equipment),")
-            if player1.heroes[i].attack > 0 {
-                print("une attaque de \(player1.heroes[i].attack)")
-            }
-            else {
-                print("soigne \(-player1.heroes[i].attack) PV, ")
-            }
-            print("et a \(player1.heroes[i].HP) PV \n")
-        }
-    }
-    
-    func statePlayer2() { // On présente les personnages du joueur 2
-        for i in 0..<player2.heroes.count {
-            print("\(player2.heroes[i].name) est un \(player2.heroes[i].classe)")
-            print("Il possède \(player2.heroes[i].equipment),")
-            if player2.heroes[i].attack > 0 {
-                print("une attaque de \(player2.heroes[i].attack)")
-            }
-            else {
-                print("soigne \(-player2.heroes[i].attack) PV, ")
-            }
-            print("et a \(player2.heroes[i].HP) PV \n")
-        }
-    }
-    
-    func HPPlayers() {
-        HPPlayer1 = 0
-        for i in 0 ..< player1.heroes.count {
-            HPPlayer1 += player1.heroes[i].HPInGame
-        }
-        print("Il reste \(HPPlayer1) aux héros de \(player1.name)")
-        HPPlayer2 = 0
-        for i in 0 ..< player2.heroes.count {
-            HPPlayer2 += player2.heroes[i].HPInGame
-        }
-        print("Il reste \(HPPlayer2) aux héros de \(player2.name)")
-    }
-    
+
     // MARK: Combat entre les héros
     
     func startFight() {
@@ -397,8 +264,8 @@ class Game {
         else {
             print("\(player1.name) gagne.")
         }
-        statePlayer1()
-        statePlayer2()
+        player1.state()
+        player2.state()
         
         
     }

@@ -11,8 +11,10 @@ class Hero {
     var name: String
     var classe:String
     var HPInGame:Int
+    var names = [String]()
     
-    var weapon = Weapon(damage: 30, name: "Marteau")
+  //  var weapon = Weapon(damage: 30, name: "Marteau")
+    var weapon = Weapon()
     //weapon.damage
     
     
@@ -24,6 +26,7 @@ class Hero {
         self.HPInGame = HPInGame
         self.equipmentInGame = equipmentInGame
         let damage = weapon.damage
+        self.names.append(name)
     }
     var HP:Int {
         return 40
@@ -68,29 +71,5 @@ class Hero {
         }
     }
 }
-
-class Barbare:Hero {
-    var classNumber = 0 // Colonne des tableaux de carac
-    override var HP:Int { game.HPClass[0] }
-    //HPInGame = game.HPClass[0]
-    override var equipment:String { game.equipmentClass[0] }
-}
-
-class Mage:Hero {
-    var classNumber = 1
-    override var HP:Int { game.HPClass[1] }
-    //HPInGame = game.HPClass[1]
-    override var equipment:String { game.equipmentClass[1] }
-}
-
-class Weapon {
-    var name:String
-    var damage:Int
-    init (damage:Int,name:String) {
-        self.damage=damage
-        self.name=name
-    }
-}
-
 
 

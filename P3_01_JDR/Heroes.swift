@@ -24,14 +24,12 @@ class Hero {
     init (classe:String,name:String,HPInGame:Int,equipmentInGame:String,weapon:Weapon) {
         self.classe = classe
         self.name = name
+        Player.namesUsed += [name] // Finalement j'ai trouvé, mais vraiment par hasard
         self.HPInGame = HPInGame
         self.equipmentInGame = equipmentInGame
         self.weapon = weapon
-     //   self.names.append(names)
         self.damage = weapon.damage
         //let damage = weapon.damage // Proposé lundi
-        
-      //  self.names.append(names)// Du coup, pas sûr
     }
     var HP:Int {
         return self.HP

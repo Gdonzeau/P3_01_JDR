@@ -8,7 +8,7 @@
 import Foundation
 
 class Player {
-    static var namesUsed = ""
+    static var namesUsed = [String]()
     var name = ""
     var heroes = [Hero]()
     var myGo = false
